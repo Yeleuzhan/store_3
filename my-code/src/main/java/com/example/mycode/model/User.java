@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -29,5 +30,8 @@ public class User extends BaseEntity {
     @JoinColumn(name = "cart_id")
     @JsonIgnore
     private Cart cart;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
 
 }
