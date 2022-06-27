@@ -4,7 +4,9 @@ import com.example.mycode.dto.JwtResponse;
 import com.example.mycode.dto.LoginForm;
 import com.example.mycode.enums.ResultEnum;
 import com.example.mycode.exception.MyException;
+import com.example.mycode.model.Cart;
 import com.example.mycode.model.User;
+import com.example.mycode.repository.CartRepository;
 import com.example.mycode.repository.UserRepository;
 import com.example.mycode.security.JwtProvider;
 import com.example.mycode.security.UserPrincipal;
@@ -25,6 +27,9 @@ public class AuthServiceImpl implements AuthService {
     private UserRepository userRepository;
 
     @Autowired
+    private CartRepository cartRepository;
+
+    @Autowired
     private UserService userService;
 
     @Autowired
@@ -41,7 +46,10 @@ public class AuthServiceImpl implements AuthService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         try {
             User savedUser = userRepository.save(user);
-
+            Cart cart = new Cart();
+            cart.setUser(savedUser);
+            cartRepository.save(cart);
+            savedUser.setCart(cart);
             return userRepository.save(savedUser);
         } catch (Exception exception) {
             throw new MyException(ResultEnum.VALID_ERROR);

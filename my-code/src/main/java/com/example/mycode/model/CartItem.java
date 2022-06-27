@@ -22,4 +22,8 @@ public class CartItem extends BaseEntity {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    private Double totalPrice;
+
+    private Long quantity;
+
 }

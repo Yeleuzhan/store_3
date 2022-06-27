@@ -1,5 +1,6 @@
 package com.example.mycode.controller.admin;
 
+import com.example.mycode.dto.product.AddProductRequest;
 import com.example.mycode.model.Product;
 import com.example.mycode.service.CategoryService;
 import com.example.mycode.service.ProductService;
@@ -13,16 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminProductController {
 
     private ProductService productService;
-    private CategoryService categoryService;
 
-    public AdminProductController(ProductService productService, CategoryService categoryService) {
+    public AdminProductController(ProductService productService) {
         this.productService = productService;
-        this.categoryService = categoryService;
     }
 
     @PostMapping("/add")
-    public Product add(@RequestBody Product product) {
-
+    public Product add(@RequestBody AddProductRequest addProductRequest) {
+        Product product1 = productService.add(addProductRequest);
+        return product1;
     }
 
 }

@@ -19,7 +19,7 @@ public class Product extends BaseEntity {
 
     private String description;
 
-    private String price;
+    private Double price;
 
     @OneToMany(mappedBy = "product")
     @JsonIgnore
